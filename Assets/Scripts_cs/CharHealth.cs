@@ -18,6 +18,7 @@ public class CharHealth : MonoBehaviour
     public GameObject pointer; // Тащим объект из движка, чтобы отображать в нем значение количества очков
     public GameObject rowSpawn; // Ссылка на RowSpawn
     public CountDestroy countDestroy; // Тащим сдуа сам скрипт CountDestroy, чтобы получить значение счета через его метод
+    public AudioSource audioSource; // Тащим ресурс с музыкой. При смерти остановим
     void Start()
     {
         UpdateHealthText();
@@ -37,6 +38,7 @@ public class CharHealth : MonoBehaviour
             charHealthText.gameObject.SetActive (false); // Скрываем жизни игрока
             gameUI.SetActive (false); // Скрываем игровые поля (обучение, жизни, счет)
             pointer.SetActive (false); // Скрываем целеуказатель
+            audioSource.Stop(); // Останавливаем музыку
         }
         UpdateHealthText();
     }
