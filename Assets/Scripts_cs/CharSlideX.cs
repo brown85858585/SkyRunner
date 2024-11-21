@@ -6,12 +6,12 @@ public class CharSlideX : MonoBehaviour
 {
     // Скорость перемещения персонажа к его новой позиции
     [SerializeField] private float charSpeed = 30;
-    // // Скорость поворота носа корабля
-    // [SerializeField] private float rotationSpeed = 5;
-    // // 
-    // [SerializeField] private float targetAngle = 0;
-    // // 
-    // [SerializeField] private float rotationAngle = 45.0f;
+    // Скорость поворота носа корабля
+    [SerializeField] private float rotationSpeed = 5;
+    // 
+    [SerializeField] private float targetAngle = 0;
+    // 
+    [SerializeField] private float rotationAngle = 45.0f;
      // Ось движения
     private string horizontal = "Horizontal";
     
@@ -28,6 +28,21 @@ public class CharSlideX : MonoBehaviour
         return pointPos;
     }
 
+    private void rotayHullMaker() {
+        // Если цель справа, поворачиваем напрво
+        if (Input.GetAxis(horizontal) > 0) {
+            targetAngle = rotationAngle; // поворот направо
+        }
+        if (Input.GetAxis(horizontal) < 0) {
+            targetAngle = -rotationAngle; // поворот налево
+        }
+        if (Input.GetAxis(horizontal) == 0) {
+            targetAngle = 0; // нос по курсу
+        }
+        Debug.Log("targetCharPos Delta " + (Input.GetAxis(horizontal)));
+        Debug.Log("targetAngle " + targetAngle);
+    }
+
     void Update()
     {
         // Перемещает позицию по X со скоростью charSpeed
@@ -37,22 +52,8 @@ public class CharSlideX : MonoBehaviour
         // Персонаж движется в 2д пространстве к целевой позиции по X, через inputGetAxisClamp
         transform.position = new Vector2(pointPosX, transform.position.y);
 
-            // Повороты корпуса доделаю, когда завершу рефакторинг кода
-        // // Если цель справа, поворачиваем напрво
-        // if (targetCharPos > transform.position.x) {
-        //     targetAngle = rotationAngle; // поворот направо
-        // }
-        // if (targetCharPos < transform.position.x) {
-        //     targetAngle = -rotationAngle; // поворот налево
-        // }
-        // if (targetCharPos == transform.position.x) {
-        //     targetAngle = 0; // нос по курсу
-        // }
-        // Debug.Log("targetCharPos Delta " + (targetCharPos - transform.position.x));
-        // Debug.Log("targetAngle " + targetAngle);
-        
-        // // Поворачиваем объект к целевому углу
-        // Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
-        // transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        // Поворачиваем объект к целевому углу
+        Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 }
