@@ -13,12 +13,7 @@ public class PointSlideX : MonoBehaviour
     public float PointPosX {
         get { return pointPos; }
     }
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
         // Горизонтально перемещает позицию указателя вправо или влево с учетом частоты кадров
@@ -28,9 +23,5 @@ public class PointSlideX : MonoBehaviour
 
         // Перемещаем указатель со скоростью pointSpeed в положение pointPos из его текущей позиции
         transform.position = new Vector2(pointPos, transform.position.y);
-        
-        // Это уже лишнее
-        // получаем скорость с учетом частоты кадров
-        // float speed = pointSpeed * Time.deltaTime;
     }
 }
