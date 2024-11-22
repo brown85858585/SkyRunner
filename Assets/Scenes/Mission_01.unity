@@ -1504,9 +1504,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charSpeed: 20
+  rotationAngle: 45
   minLeftPos: -7
   maxRightPos: 7
-  pointDist: 20
 --- !u!61 &927200575
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2086,7 +2086,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1384947339
 ParticleSystemRenderer:
   serializedVersion: 6

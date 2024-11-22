@@ -20,7 +20,7 @@ public class CharSlideX : MonoBehaviour
 
     void Update() {
         UpdatePosition();
-        UpdateRotation();
+        // UpdateRotation();
     }
 
     private void UpdatePosition() {
