@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class RowSpawn : MonoBehaviour
 {
-    public GameObject lastSpawnMine; // Интерфейс, чтобы суда записывалась последняя мина
-    [SerializeField] private float _accelMineSpeed = 1; // Увеличение скорости мин в секунду. Ускорение
-    private float _mineSpeedPlus = 0f; // Множитель скорости мин приходится писать суда. Мины слишком мало живут, чтобы чтото запомнить
-    public GameObject[] mineRows; // Суда нужно передать все префабы с рядами мин
+    // Суда нужно передать все префабы с рядами мин
+    public GameObject[] mineRows;
+    // Интерфейс, чтобы суда записывалась последняя мина
+    public GameObject lastSpawnMine;
+    // Увеличение скорости мин в секунду. Ускорение
+    [SerializeField] private float _accelMineSpeed = 1;
+    // Безопасное расстояние для создания нового ряда бомб
+    [SerializeField] private float saveIntrval = 5;
     // [SerializeField] private float spawnDelay = 2; // Время в секундах до нового создания ряда с минами
-    [SerializeField] private float saveIntrval = 5; // Безопасное расстояние для создания нового ряда бомб
-    private int selectMineRow; // Случайный ряд по индексу массима
-    private bool contineSpawn = true; // Переменная указывающая стоит ли спавнить бомбы дальше
-    public void togleSpawn (bool togle){
+
+    // Множитель скорости мин приходится писать суда. Мины слишком мало живут, чтобы чтото запомнить
+    private float _mineSpeedPlus = 0f;
+    // Случайный ряд по индексу массима
+    private int selectMineRow;
+    // Переменная указывающая стоит ли спавнить бомбы дальше
+    private bool contineSpawn = true;
+
+    public void togleSpawn (bool togle) {
+        // Интерфейс для включения спавна
         if (togle) {
             contineSpawn = true;
         } else {
@@ -20,14 +30,18 @@ public class RowSpawn : MonoBehaviour
         }
     }
 
-    public float mineSpeedPlus => _mineSpeedPlus; // Даем на чтение интерфейс для увели
+    public float mineSpeedPlus {
+        get {return _mineSpeedPlus;}
+    }
 
-    void Start(){}
+    void Update() {
+        SpawnRowCheck(); 
+    }
 
-    void Update()
-    {
-        if (contineSpawn){ // Если работает спавнер
-            _mineSpeedPlus += _accelMineSpeed * Time.deltaTime; // Увеличиваем скорость каждую секунду. Так игра быстрее сходится.
+    private void SpawnRowCheck() {
+        if (contineSpawn){
+            // Увеличиваем скорость каждую секунду. Так игра быстрее сходится.
+            _mineSpeedPlus += _accelMineSpeed * Time.deltaTime;
             SpawnRow();
         }
     }

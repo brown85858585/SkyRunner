@@ -6,15 +6,12 @@ public class MineSpawn : MonoBehaviour
 {
     public GameObject minePrefab;
 
-    void Start()
-    {
-        // Создаем одну мину
-        Instantiate(minePrefab, transform.position, Quaternion.identity);
+    void Start() {
+        MineSpawnMaker();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void MineSpawnMaker() {
+        // Создаем одну мину
+        Instantiate(minePrefab, transform.position, Quaternion.identity);
     }
 }

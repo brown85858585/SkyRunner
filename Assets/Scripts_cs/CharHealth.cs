@@ -25,7 +25,8 @@ public class CharHealth : MonoBehaviour
     }
 
     void Update(){}
-    public void TakeDamage(int damage) // Функция получение урона владельцем. Урон в размере damage
+    public void TakeDamage(int damage)
+    // Интерфейс. Функция получение урона владельцем. Урон в размере damage
     {
         charHealth -= damage; // Отнять жизни у владельца в размере damage
         if (charHealth <= 0) { // Если у обладателя закончились жизни

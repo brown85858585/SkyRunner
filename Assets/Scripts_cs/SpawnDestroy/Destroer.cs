@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Destroer : MonoBehaviour
 {
-    public float lifeTime = 0; // Время жизни объекта и его скрипта. Задается в движке!!! Не тут
+    // Время жизни объекта и его скрипта. Задается в движке!!! Не тут
+    [SerializeField] public float lifeTime = 0;
 
     void Update()
     {
-        Destroy (gameObject, lifeTime); // Уничтожим объект через lifeTime секунд
+        // Уничтожим объект через lifeTime секунд
+        Destroy (gameObject, lifeTime);
     }
 }

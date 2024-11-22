@@ -9,17 +9,32 @@ public class Parallax : MonoBehaviour
     public float paralSpeed = 0.5f; // Скорость паралакса фона
     void Start()
     {
-        length = GetComponent<SpriteRenderer>().bounds.size.y; // Размер по оси y
-        startPosition = transform.position; // Сохраняем начальную позицию
+        StartPositionLength();
     }
 
     void Update()
     {
-        transform.position += Vector3.down * paralSpeed * Time.deltaTime; // Перемещаем фон
+        BackMove();
+        BackPortal();
+    }
 
+    private void StartPositionLength() {
+        // Размер по оси y
+        length = GetComponent<SpriteRenderer>().bounds.size.y;
+        // Сохраняем начальную позицию
+        startPosition = transform.position;
+    }
+
+    private void BackMove() {
+        // Перемещаем фон
+        transform.position += Vector3.down * paralSpeed * Time.deltaTime;
+    }
+
+    private void BackPortal() {
         // Проверяем, нужно ли переместить фон
         if (transform.position.y <= startPosition.y - length){
-            transform.position = startPosition; // Возвращаем фон в начальную позицию
+            // Возвращаем фон в начальную позицию
+            transform.position = startPosition;
         }
     }
 }

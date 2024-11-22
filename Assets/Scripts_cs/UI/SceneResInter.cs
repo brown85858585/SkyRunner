@@ -5,11 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class SceneResInter : MonoBehaviour
 {
-    void Start()    {}
-
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y)){
+        InputYDown();
+    }
+
+    private void InputYDown(){
+        if (Input.GetKeyDown(KeyCode.Y)) {
+            // Перезапускаем сцену
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
