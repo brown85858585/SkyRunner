@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class MineMoveY : MonoBehaviour
 {
-    public float mineSpeed = 30; // Скорость движения мин
-    public int mineDamage = 1; // Урон наносимы миной игроку. Задается в редакторе
+    // Скорость движения мин
+    [SerializeField] private float mineSpeed = 30;
+    // Урон наносимы миной игроку. Задается в редакторе
+    [SerializeField] private int mineDamage = 1;
+    
     private float moveY; // Позиция мины
     private RowSpawn rowSpawn; // Ссылка на RowSpawn
     void Start()
