@@ -5,15 +5,25 @@ using TMPro;
 
 public class CountDestroy : MonoBehaviour
 {
-    private int gameScoer; // Количество очков заработаных игроком
-    public int enemyScorePrise = 1; // Цена врагов на счетчике. Кажется, нужно убрать эту переменную во врага и вызов функции тоже
-    public TextMeshProUGUI gameScoreText; // Тащим объект из движка, чтобы отображать в нем значение количества очков
-    void Start(){}
-    void Update(){}
+    // Количество очков заработаных игроком
+    private int gameScoer;
+
+    // Цена врагов на счетчике. Кажется, нужно убрать эту переменную во врага и вызов функции тоже
+    public int enemyScorePrise = 1;
+    // Тащим объект из движка, чтобы отображать в нем значение количества очков
+    public TextMeshProUGUI gameScoreText;
+    // Отдаем счет в CharHealth
+    public float SendScore{
+        get {return gameScoer;}
+    }
     
-    private void OnTriggerEnter2D(Collider2D other){ // При косании колайдера
-        if (other.gameObject.CompareTag("Enemy")) { // Если это враг
-            // other.gameObject.GetComponent<CharHealth>().TakeDamage(mineDamage);
+    private void OnTriggerEnter2D(Collider2D other) {
+        CheckThisEnemy(other);
+    }
+
+    private void CheckThisEnemy(Collider2D other) {
+    // Если это враг
+        if (other.gameObject.CompareTag("Enemy")) {
             // тут нужно добавить счет к счетчику
             ChangeScore(enemyScorePrise);
             Destroy(other.gameObject); // Уничтожить врага
@@ -27,8 +37,5 @@ public class CountDestroy : MonoBehaviour
     void UpdateScoreText() // Функция обновления текста со счетом
     {
         gameScoreText.text = "Счет = " + gameScoer.ToString(); // Передаем в текст объекта с текстом строку с надписью и заработаными за раунд очками
-    }
-    public float SendScore{
-        get {return gameScoer;}
     }
 }
