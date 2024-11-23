@@ -10,13 +10,17 @@ public class MineMoveY : MonoBehaviour
     [SerializeField] private int mineDamage = 1;
 
     private float moveY; // Позиция мины
-    private RowSpawn rowSpawn; // Ссылка на RowSpawn
+    // Значение тэга для нахождения игрока
+    private string compareTagPlayer = "Player";
+    // Ссылка на RowSpawn
+    private RowSpawn rowSpawn;
+    // Красные частицы при столкновении и звук
+    public GameObject redSparks;
+    public GameObject redMineHit;
     void Start()
     {
         FindSpawnerPos();
-        // Получаем общее ускорение мин из спавнера
-        // Так каждый ряд в игре будет лететь все быстрее в рамках раунда
-        mineSpeed += rowSpawn.mineSpeedPlus;
+        RowSpawnMineSpeedPlus();
     }
 
     void Update()
@@ -25,7 +29,7 @@ public class MineMoveY : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        // Если задел объект, то один раз бъем игрока
+        // Если задел объект игрока, то один раз бъем его
         PlayerAtack(other);
     }
 
@@ -38,6 +42,11 @@ public class MineMoveY : MonoBehaviour
             rowSpawn.lastSpawnMine = this.gameObject;
         }
     }
+    private void RowSpawnMineSpeedPlus() {
+        // Получаем общее ускорение мин из спавнера
+        // Так каждый ряд в игре будет лететь все быстрее в рамках раунда
+        mineSpeed += rowSpawn.mineSpeedPlus;
+    }
 
     private void MineMoveHandler() {
         // Позиция мины все время уменльшается. Мина движется вниз
@@ -47,12 +56,19 @@ public class MineMoveY : MonoBehaviour
     }
 
     private void PlayerAtack(Collider2D playerOther) {
-        string playerCompareTagPlayer = "Player"; // Просто люблю это слово
+        string playerCompareTagPlayer = compareTagPlayer; // Просто люблю это слово
         if (playerOther.gameObject.CompareTag(playerCompareTagPlayer)) { // Если это игрок
             // Отнять у игрока одну жизнь. Прописана в жизнях игрока
             playerOther.gameObject.GetComponent<CharHealth>().TakeDamage(mineDamage);
+            CallSparksAndSound();
             Destroy(gameObject); // Уничтожить саму мину
         }
+    }
+
+    private void CallSparksAndSound() {
+        // не повериш. Вызовем частицы и звук столкновения. Уничтожатся они сами
+        Instantiate(redSparks, transform.position, Quaternion.identity);
+        Instantiate(redMineHit, transform.position, Quaternion.identity);
     }
 }
 

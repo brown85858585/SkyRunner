@@ -12,21 +12,26 @@ public class CountDestroy : MonoBehaviour
     public int enemyScorePrise = 1;
     // Тащим объект из движка, чтобы отображать в нем значение количества очков
     public TextMeshProUGUI gameScoreText;
+    // Текст перед значением счета в игре
+    private string gameScoerTextString = "Счет = ";
+    // Тэг для обнаружения противников
+    private string compareTagEnemy = "Enemy";
     // Отдаем счет в CharHealth
     public float SendScore{
         get {return gameScoer;}
     }
     
     private void OnTriggerEnter2D(Collider2D other) {
-        CheckThisEnemy(other);
+        CheckIfThisEnemy(other);
     }
 
-    private void CheckThisEnemy(Collider2D other) {
+    private void CheckIfThisEnemy(Collider2D other) {
     // Если это враг
-        if (other.gameObject.CompareTag("Enemy")) {
+        if (other.gameObject.CompareTag(compareTagEnemy)) {
             // тут нужно добавить счет к счетчику
             ChangeScore(enemyScorePrise);
-            Destroy(other.gameObject); // Уничтожить врага
+            // Уничтожить врага
+            Destroy(other.gameObject);
         }
     }
     
@@ -36,6 +41,6 @@ public class CountDestroy : MonoBehaviour
     }
     void UpdateScoreText() // Функция обновления текста со счетом
     {
-        gameScoreText.text = "Счет = " + gameScoer.ToString(); // Передаем в текст объекта с текстом строку с надписью и заработаными за раунд очками
+        gameScoreText.text = gameScoerTextString + gameScoer.ToString(); // Передаем в текст объекта с текстом строку с надписью и заработаными за раунд очками
     }
 }

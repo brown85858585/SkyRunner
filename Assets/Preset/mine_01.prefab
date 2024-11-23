@@ -101,6 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mineSpeed: 6
   mineDamage: 1
+  redSparks: {fileID: 1438109605774499695, guid: f660c6b301e752448bd840ef40db3c21, type: 3}
+  redMineHit: {fileID: 8406808925916498474, guid: 01ff0496020e51340b1da0c790eb0fc7, type: 3}
 --- !u!58 &5935559084105237989
 CircleCollider2D:
   m_ObjectHideFlags: 0

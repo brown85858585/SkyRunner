@@ -10,13 +10,22 @@ public class CharSlideX : MonoBehaviour
     // [SerializeField] private float rotationSpeed = 5f;
     // угол поворота
     [SerializeField] private float rotationAngle = 45.0f;
-     // Ось движения
-    private string horizontal = "Horizontal";
-    
     // Ограничения по X
     [SerializeField] private float minLeftPos = -7f;
     [SerializeField] private float maxRightPos = 7f;
     private float pointPosX = 0f; // Текущая позиция по X
+     // Ось движения
+    private string horizontal = "Horizontal";
+    // Найдем звук двигателя на себе
+    private AudioSource engineSound;
+
+    void Start() {
+        warInitializer();
+    }
+
+    private void warInitializer() {
+        engineSound = GetComponent<AudioSource>();
+    }
 
     void Update() {
         UpdatePosition();
@@ -32,8 +41,24 @@ public class CharSlideX : MonoBehaviour
     private float GetInputMovement(float pointPos) {
         // Функция учитывает скорость и частоту кадров
         float movementInput = Input.GetAxis(horizontal);
+        if (movementInput != 0) {
+            SparksSoundsByMovingOn();
+        }
+        else {
+            SparksSoundsByMovingOff();
+        }
         pointPos += movementInput * charSpeed * Time.deltaTime;
         return pointPos;
+    }
+
+    private void SparksSoundsByMovingOn() {
+        // Играем звук двигателя и разбрасываем частицы
+        if (!engineSound.isPlaying) engineSound.Play();
+    }
+
+    private void SparksSoundsByMovingOff() {
+        // Выключаем звук двигателя и частицы
+        if (engineSound.isPlaying) engineSound.Stop();
     }
 
     private float ClampPosition(float pointPos) {
