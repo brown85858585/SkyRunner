@@ -18,6 +18,8 @@ public class CharSlideX : MonoBehaviour
     private string horizontal = "Horizontal";
     // Найдем звук двигателя на себе
     private AudioSource engineSound;
+    // Найдем частицы двигателя на себе
+    private ParticleSystem engineParticles;
 
     void Start() {
         warInitializer();
@@ -25,6 +27,7 @@ public class CharSlideX : MonoBehaviour
 
     private void warInitializer() {
         engineSound = GetComponent<AudioSource>();
+        engineParticles = GetComponent<ParticleSystem>();
     }
 
     void Update() {
@@ -54,11 +57,17 @@ public class CharSlideX : MonoBehaviour
     private void SparksSoundsByMovingOn() {
         // Играем звук двигателя и разбрасываем частицы
         if (!engineSound.isPlaying) engineSound.Play();
+        if (!engineParticles.isPlaying) {
+            engineParticles.Play();
+        };
     }
 
     private void SparksSoundsByMovingOff() {
         // Выключаем звук двигателя и частицы
         if (engineSound.isPlaying) engineSound.Stop();
+        if (engineParticles.isPlaying) {
+            engineParticles.Stop();
+        };
     }
 
     private float ClampPosition(float pointPos) {
