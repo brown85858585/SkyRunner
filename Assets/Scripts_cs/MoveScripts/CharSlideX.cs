@@ -57,17 +57,17 @@ public class CharSlideX : MonoBehaviour
     private void SparksSoundsByMovingOn() {
         // Играем звук двигателя и разбрасываем частицы
         if (!engineSound.isPlaying) engineSound.Play();
-        if (!engineParticles.isPlaying) {
-            engineParticles.Play();
-        };
+        // if (!engineParticles.isPlaying) {
+        //     engineParticles.Play();
+        // };
     }
 
     private void SparksSoundsByMovingOff() {
         // Выключаем звук двигателя и частицы
         if (engineSound.isPlaying) engineSound.Stop();
-        if (engineParticles.isPlaying) {
-            engineParticles.Stop();
-        };
+        // if (engineParticles.isPlaying) {
+        //     engineParticles.Stop();
+        // };
     }
 
     private float ClampPosition(float pointPos) {
@@ -111,31 +111,6 @@ public class CharSlideX : MonoBehaviour
         Debug.Log("transform.rotation " + transform.rotation);
     }
 
-    // private float InputGetAxis (float pointPos) {
-    //     // Горизонтально перемещает позицию указателя вправо или влево с учетом частоты кадров
-    //     pointPos += Input.GetAxis(horizontal) * charSpeed * Time.deltaTime;
-    //     // Попробовать GetAxisRow?
-    //     return pointPos;
-    // }
-
-    // private float rotateHullMaker() {
-    //     float targetAngle = 0;
-    //     // Если цель справа, поворачиваем напрво
-    //     if (Input.GetAxis(horizontal) > 0) {
-    //         targetAngle = rotationAngle; // поворот направо
-    //     }
-    //     else if (Input.GetAxis(horizontal) < 0) {
-    //         targetAngle = -rotationAngle; // поворот налево
-    //     }
-    //     // Если нет ввода, ставим нос по курсу
-    //     else {
-    //         targetAngle = 0;
-    //     }
-    //     Debug.Log("targetCharPos Delta " + Input.GetAxis(horizontal) );
-    //     Debug.Log("targetAngle " + targetAngle);
-    //     return targetAngle;
-    // }
-
     // void Update()
     // {
     //     // Перемещает позицию по X со скоростью charSpeed
@@ -150,4 +125,29 @@ public class CharSlideX : MonoBehaviour
     //     Quaternion targetRotation = Quaternion.Euler( 0, 0, targetAngle);
     //     transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     // }
+
+    private float InputGetAxis (float pointPos) {
+        // Горизонтально перемещает позицию указателя вправо или влево с учетом частоты кадров
+        pointPos += Input.GetAxis(horizontal) * charSpeed * Time.deltaTime;
+        // Попробовать GetAxisRow?
+        return pointPos;
+    }
+
+    private float rotateHullMaker() {
+        float targetAngle = 0;
+        // Если цель справа, поворачиваем напрво
+        if (Input.GetAxis(horizontal) > 0) {
+            targetAngle = rotationAngle; // поворот направо
+        }
+        else if (Input.GetAxis(horizontal) < 0) {
+            targetAngle = -rotationAngle; // поворот налево
+        }
+        // Если нет ввода, ставим нос по курсу
+        else {
+            targetAngle = 0;
+        }
+        Debug.Log("targetCharPos Delta " + Input.GetAxis(horizontal) );
+        Debug.Log("targetAngle " + targetAngle);
+        return targetAngle;
+    }
 }
